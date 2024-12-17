@@ -1,0 +1,15 @@
+.ql-editor.ql-blank::before {
+    color: white !important; /* Change placeholder color */
+    font-style: italic; /* Optional: Make it italic */
+    opacity: 0.7; /* Optional: Reduce opacity */
+  }
+  .ql-container {
+    border: 1px solid #585859; /* White border */
+    /* border-radius: 8px; Rounded corners */
+    padding: 8px; /* Inner spacing */
+  }
+  
+  .ql-container:focus-within {
+    border: 1px solid #585859;
+  }
+    
