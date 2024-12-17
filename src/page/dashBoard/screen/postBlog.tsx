@@ -3,14 +3,13 @@ import PostWithImage from "../component/post/postWithImage";
 import PostWithVideo from "../component/post/postWithVideo";
 
 const PostBlog = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeTab, setActiveTab] = useState(0); // For Post and Preview tabs
   const [previewTab, setPreviewTab] = useState(0); // For Post with Image and Post with Video
 
   return (
     <main className="font-inter p-4 h-screen overflow-hidden">
       {/* Header: Post and Preview */}
-      {/* <div className="flex gap-4 mb-4 justify-center items-center">
+      <div className="flex gap-4 mb-4 justify-center items-center">
         <button
           onClick={() => setActiveTab(0)}
           className={`px-4 py-2 rounded-md font-inter text-lg ${
@@ -27,7 +26,7 @@ const PostBlog = () => {
         >
           Preview
         </button>
-      </div> */}
+      </div>
 
       {/* Sub-tabs: Post with Image and Post with Video */}
       {activeTab === 0 && (
