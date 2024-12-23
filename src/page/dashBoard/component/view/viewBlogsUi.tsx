@@ -132,7 +132,14 @@ const ViewBlogUi: FC<Component> = ({
                <ReadMoreButton />
           </button>
         
-          {isAuthor && <Link to={''}><button className="text-pe w-32 rounded-md h-8 gap-3 text-text-colour mt-2 flex  flex-row-reverse justify-center items-center border border-peach"><FaEdit />Edit</button></Link>}
+          {/* {isAuthor && <Link to={`/edit/${blog._id}`} state={blog}><button className="text-pe w-32 rounded-md h-8 gap-3 text-text-colour mt-2 flex  flex-row-reverse justify-center items-center border border-peach"><FaEdit />Edit</button></Link>} */}
+          {isAuthor && blog?._id && (
+            <Link to={`/edit/${blog._id}`} state={blog}>
+              <button className="text-pe w-32 rounded-md h-8 gap-3 text-text-colour mt-2 flex flex-row-reverse justify-center items-center border border-peach">
+                <FaEdit /> Edit
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </section>

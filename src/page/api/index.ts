@@ -90,6 +90,52 @@ const saveBlog = async (data: BlogData) => {
         console.log('error', error);
     }
   }
+
+  const getBlogPostById = async(id: string) => {
+    try{
+        const response = await axios.get(`http://localhost:8000/blogPost/blog/${id}`);
+        return response.data;
+    }catch(error){
+        console.log('error', error);
+    }
+  }
+
+  interface UpdateBlogData {
+    title:string
+    description:string
+    category:string
+    header:string
+    smallDescription:string
+    body:string
+    file:File | null
+
+
+  }
+
+  const updateBlogPost = async(id: string, data:UpdateBlogData): Promise<UpdateBlogData | null>  => {
+    try {
+
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      formData.append("category", data.category);
+      formData.append("header", data.header);
+      formData.append("smallDescription", data.smallDescription);
+      formData.append("body", data.body);
+       if(data.file){
+        formData.append("image", data.file )
+      }
+      const response = await axios.patch(`http://localhost:8000/blogPost/update/${id}`, formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.log('Error in updating blog post:', error);
+      return null;
+    }
+  }
   
 
 
@@ -98,6 +144,8 @@ const apiFunctions = {
     saveBlog,
     saveBlogVideo,
     getAlLBlogPost,
+    getBlogPostById,
+    updateBlogPost
 
 }
 

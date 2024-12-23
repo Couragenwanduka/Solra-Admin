@@ -4,6 +4,7 @@ import Signup from './page/signup/signup';
 import Login from './page/login/login';
 import DashBoard from './page/dashBoard/dashBoard';
 import ReadPage from './page/dashBoard/screen/readBlog';
+import EditImagePost from './page/dashBoard/screen/editBlogPost';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
@@ -26,6 +27,7 @@ function App() {
           <>
              <Route path="/" element={<DashBoard/>} />
              <Route path="/blog" element={<ReadPage/>} />
+             <Route path="/edit/:id" element={<EditImagePost/>} />
           </>
         ) : (
           <>

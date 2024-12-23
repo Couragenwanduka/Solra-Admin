@@ -44,7 +44,7 @@ const RightPanel = () => {
       onSuccess: (data) => {
           setIsLoading(false); 
           toast.success(data.message)
-          Cookies.set('accessToken', data.accessToken);  // store the JWT token in a cookie for future requests
+          Cookies.set('accessToken', data.accessToken, {expires: 0.125});  // store the JWT token in a cookie for future requests (3 hours)
           setUser(data.user); 
           setTimeout(() => {
             navigate('/');
