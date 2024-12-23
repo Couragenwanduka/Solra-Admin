@@ -5,49 +5,111 @@ import { CiHeart } from 'react-icons/ci';
 import { FiSend } from 'react-icons/fi';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useBlogs } from '../../../../hooks/readBlog';
 
 interface Component {
-  isBlog?: boolean;
-  authorName: string;
-  category: string;
+  isAuthor?: boolean;
+  author: { 
+    picture: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    dateOfBirth: string;
+    password: string;
+    id: string;};
+  category: {
+    id: string;
+    name: string;
+  };
+  postDate: Date;
+  title: string;
+  description: string;
+  likes: number;
+  shares: number | undefined;
+  blog:Blog
+}
+
+interface Blog {
+  isAuthor?: boolean;
+  author: { 
+    picture: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    dateOfBirth: string;
+    password: string;
+    id: string;
+  };
+  category: {
+    id: string;
+    name: string;
+  };
   postDate: string;
   title: string;
   description: string;
   likes: number;
   shares: number;
+  _id: string;
+  contents:[{
+    header:string;
+    smallDescription:string;
+    body:string
+}]
+  publicationDate: string;
+  image?: string;
+  video?: string;
+  views?: number;
+  sendBlog?: number;
+  likesIp?: string[];
+  isHeadLine?: boolean;
+  pulicationDate: Date;
 }
 
 const ViewBlogUi: FC<Component> = ({
-  isBlog,
-  authorName,
+  isAuthor,
+  author,
   category,
   postDate,
   title,
   description,
   likes,
   shares,
+  blog
 }) => {
+  const { addBlog } = useBlogs();
+  const formattedDate = new Date( postDate).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  const handleOnCLick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    addBlog(blog);
+  }
+
+
   return (
     <section className="justify-between items-center w-full h-full border-t border-borderColor pb-5 hidden md:flex">
       {/* Author Section */}
       <div className="flex w-[30%]">
         <div className="w-[35%] flex justify-center items-start">
           <img
-            src={'/image/Image.png'}
-            alt={`Profile picture of ${authorName}`}
+            src={ author.picture||'/image/Image.png'}
+            alt={`Profile picture of ${author.firstName} ${author.lastName}`}
             className="md:w-[5rem] md:h-[5rem] rounded-full"
           />
         </div>
         <div className="mt-2 w-[60%]">
-          <h1 className="text-[20px] font-inter">{authorName}</h1>
-          <p className="font-inter text-text-colour text-[15px]">{category}</p>
+          <h1 className="text-[20px] font-inter">{author.firstName} {author.lastName}</h1>
+          <p className="font-inter text-text-colour text-[15px]">{category.name}</p>
         </div>
       </div>
 
       {/* Blog Content */}
       <div className="flex justify-center items-center w-[80%] gap-3">
         <div className="w-[75%] flex flex-col gap-3">
-          <p className="text-text-colour text-[17px] font-semibold mt-5">{postDate}</p>
+          <p className="text-text-colour text-[17px] font-semibold mt-5">{formattedDate}</p>
           <p className="text-[23px] font-semibold">{title}</p>
           <BlogSmallText text={description} />
           <div className="flex gap-5">
@@ -66,8 +128,11 @@ const ViewBlogUi: FC<Component> = ({
 
         {/* Actions */}
         <div className="w-[25%] flex flex-col justify-end">
-          <ReadMoreButton />
-          {isBlog && <Link to={''}><button className="text-pe w-32 rounded-md h-8 gap-3 text-text-colour mt-2 flex  flex-row-reverse justify-center items-center border border-peach"><FaEdit />Edit</button></Link>}
+          <button onClick={handleOnCLick}>
+               <ReadMoreButton />
+          </button>
+        
+          {isAuthor && <Link to={''}><button className="text-pe w-32 rounded-md h-8 gap-3 text-text-colour mt-2 flex  flex-row-reverse justify-center items-center border border-peach"><FaEdit />Edit</button></Link>}
         </div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import PostWithVideo from "../component/post/postWithVideo";
 const PostBlog = () => {
   const [activeTab, setActiveTab] = useState(0); // For Post and Preview tabs
   const [previewTab, setPreviewTab] = useState(0); // For Post with Image and Post with Video
+ 
 
   return (
     <main className="font-inter p-4 h-screen overflow-hidden">
@@ -51,7 +52,7 @@ const PostBlog = () => {
       )}
 
       {/* Content Area */}
-      <div className="mt-4 h-screen overflow-scroll pb-32">
+      <div className="mt-4 h-screen overflow-scroll pb-56">
         {activeTab === 0 ? (
           previewTab === 0 ? (
             <div className="flex justify-center">

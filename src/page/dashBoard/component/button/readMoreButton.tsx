@@ -13,7 +13,7 @@ const ReadMoreButton: FC<Component> = ({
   className = 'md:w-32 ',
 }) => {
   return (
-    <Link to={'/'}>
+    <Link to={'/blog'}>
       <span
         className={` ${className} border border-[#1c1c1c] flex justify-center items-center pr-2 pl-2 md:pr-0 md:pl-0  md:h-10 h-10 rounded-lg font-inter md:text-[15px] text-[13px] gap-2 text-[#606060] cursor-pointer`}
       >

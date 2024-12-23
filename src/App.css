@@ -1,5 +1,5 @@
 .ql-editor.ql-blank::before {
-    color: white !important; /* Change placeholder color */
+    color: #979799 !important; /* Change placeholder color */
     font-style: italic; /* Optional: Make it italic */
     opacity: 0.7; /* Optional: Reduce opacity */
   }
@@ -12,4 +12,44 @@
   .ql-container:focus-within {
     border: 1px solid #585859;
   }
-    
+    /* Hide scrollbar for Chrome, Safari and Opera */
+.ql-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.ql-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.content h1{
+  color: white;
+  font-size: 35px;
+  margin-top: 10px;
+}
+.content h2{
+  color: white;
+  font-size: 30px;
+  margin-top: 10px;
+}
+.content h3{
+  color: white;
+  font-size: 25px;
+  margin-top: 10px;
+}
+.content h4{
+  color: white;
+  font-size: 20px;
+  margin-top: 10px;
+}
+.content h5{
+  color: white;
+  font-size: 20px;
+  margin-top: 10px;
+}
+.content h6{
+  color: white;
+  font-size: 20px;
+  margin-top: 10px;
+}

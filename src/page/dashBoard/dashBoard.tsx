@@ -57,7 +57,7 @@ const DashBoard = () => {
       </section>
 
       {/* Tab Panels */}
-      <div className="flex-grow ">
+      <div className="flex-grow  w-[77%]">
         {tabs[activeTab]?.content || <h2>No Content Available</h2>}
       </div>
     </div>
