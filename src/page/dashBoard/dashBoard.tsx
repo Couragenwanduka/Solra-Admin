@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import LogoSolra from '../../component/Logo/Logo';
 import { MdDashboard, MdPostAdd, MdOutlineApproval } from 'react-icons/md';
@@ -13,9 +14,12 @@ import ApproveBlog from './screen/approveBlog';
 import User from './screen/user';
 import Setting from './screen/setting';
 import { useAuth } from '../../hooks/authContext';
+import { useUser } from '../../hooks/userDetails';
 
 const USER_KEY = 'user';
+
 const DashBoard = () => {
+  const { user } = useUser();
   const [activeTab, setActiveTab] = useState(0);
   const { logout } = useAuth(); // Get the logout function
 
@@ -26,20 +30,49 @@ const DashBoard = () => {
     window.location.replace('/'); // Redirect to home or login page
   };
 
-  const tabs = [
-    { icon: <MdDashboard />, label: 'Dashboard', content: <DashBoardScreen /> },
-    { icon: <MdPostAdd />, label: 'Post Blog', content: <PostBlog /> },
-    { icon: <CiViewList />, label: 'View Blog', content: <ViewBlog /> },
-    { icon: <MdOutlineApproval />, label: 'Approve Blog', content: <ApproveBlog /> },
-    { icon: <FaRegUser />, label: 'User', content: <User /> },
-    { icon: <IoSettingsOutline />, label: 'Setting', content: <Setting /> },
-    { 
-      icon: <IoIosLogOut />, 
-      label: 'Log out', 
-      content: <h2>Log Out Content</h2>, 
-      action: clearLocalStorage // Only set the logout action for this tab
-    },
-  ];
+  type UserRole = 'Admin' | 'Developer' | 'Editor' | 'Cheif Editor';
+  
+  const roleTabs: Record<UserRole, { icon: JSX.Element; label: string; content: JSX.Element; action?: () => void }[]> = {
+    Admin: [
+      { icon: <MdDashboard />, label: 'Dashboard', content: <DashBoardScreen /> },
+      { icon: <MdPostAdd />, label: 'Post Blog', content: <PostBlog /> },
+      { icon: <CiViewList />, label: 'View Blog', content: <ViewBlog /> },
+      { icon: <IoSettingsOutline />, label: 'Setting', content: <Setting /> },
+      { icon: <IoIosLogOut />, label: 'Log out', content: <h2>Log Out Content</h2>, action: clearLocalStorage }
+    ],
+    Developer: [
+      { icon: <MdDashboard />, label: 'Dashboard', content: <DashBoardScreen /> },
+      { icon: <MdPostAdd />, label: 'Post Blog', content: <PostBlog /> },
+      { icon: <CiViewList />, label: 'View Blog', content: <ViewBlog /> },
+      { icon: <MdOutlineApproval />, label: 'Approve Blog', content: <ApproveBlog /> },
+      { icon: <FaRegUser />, label: 'User', content: <User /> },
+      { icon: <IoSettingsOutline />, label: 'Setting', content: <Setting /> },
+      { icon: <IoIosLogOut />, label: 'Log out', content: <h2>Log Out Content</h2>, action: clearLocalStorage }
+    ],
+    Editor: [
+      { icon: <MdDashboard />, label: 'Dashboard', content: <DashBoardScreen /> },
+      { icon: <MdPostAdd />, label: 'Post Blog', content: <PostBlog /> },
+      { icon: <CiViewList />, label: 'View Blog', content: <ViewBlog /> },
+      { icon: <IoSettingsOutline />, label: 'Setting', content: <Setting /> },
+      { icon: <IoIosLogOut />, label: 'Log out', content: <h2>Log Out Content</h2>, action: clearLocalStorage }
+    ],
+    'Cheif Editor': [
+      { icon: <MdDashboard />, label: 'Dashboard', content: <DashBoardScreen /> },
+      { icon: <MdPostAdd />, label: 'Post Blog', content: <PostBlog /> },
+      { icon: <CiViewList />, label: 'View Blog', content: <ViewBlog /> },
+      { icon: <MdOutlineApproval />, label: 'Approve Blog', content: <ApproveBlog /> },
+      { icon: <IoSettingsOutline />, label: 'Setting', content: <Setting /> },
+      { icon: <IoIosLogOut />, label: 'Log out', content: <h2>Log Out Content</h2>, action: clearLocalStorage }
+    ]
+  };
+
+  // Ensure user exists before rendering tabs
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+  const tabs = user?.role && roleTabs[user.role as UserRole] ? roleTabs[user.role as UserRole] : roleTabs['Editor']; // Fallback to 'Editor' if no role is found
+
+  // const tabs = user?.role ? roleTabs[user.role] : roleTabs['Editor']; // Fallback to 'developer' if no role is found
 
   return (
     <div className="flex font-inter h-screen overflow-scroll">
@@ -49,7 +82,7 @@ const DashBoard = () => {
           <LogoSolra />
         </div>
         <div className="flex flex-col justify-center items-start mt-10">
-          {tabs.map((tab, index) => (
+          {tabs.map((tab:any, index:number) => (
             <button
               key={index}
               onClick={() => {
