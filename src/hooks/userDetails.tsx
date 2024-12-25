@@ -34,7 +34,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (user) {
             localStorage.setItem("user", JSON.stringify(user));
         } else {
-            localStorage.removeItem("user"); // Clear localStorage if user is undefined
+            // localStorage.removeItem("user"); // Clear localStorage if user is undefined
         }
     }, [user]);
 
@@ -46,6 +46,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
 };
 
 // Custom hook to use the user context
+// eslint-disable-next-line react-refresh/only-export-components
 export const useUser = (): {
     user: User | undefined;
     setUser: React.Dispatch<React.SetStateAction<User | undefined>>;

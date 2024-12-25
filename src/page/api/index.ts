@@ -16,7 +16,7 @@ interface BlogData {
   description: { description: string };
   category: { category: string };
   contents: { contents: { header: string; smallDescription: string; body: string } };
-  file:{ image: File  }
+  file:File
 }
 
 const saveBlog = async (data: BlogData) => {
@@ -32,8 +32,6 @@ const saveBlog = async (data: BlogData) => {
       formData.append("smallDescription", data.contents.contents.smallDescription);
       formData.append("body", data.contents.contents.body);
       const token = Cookies.get('accessToken');
-      console.log(data.contents.contents, 'data',)
-
 
       if(data.file){
         formData.append("image", data.file )
@@ -136,7 +134,104 @@ const saveBlog = async (data: BlogData) => {
       return null;
     }
   }
+
+  const PostStatusUpdate = async (id:string, status:string) => {
+    try {
+      const response = await axios.patch(`http://localhost:8000/blogPost/status/${id}`, { status }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log('Error in updating blog post status:', error);
+    }
+  }
+
+  const CreateComment = async(postId:string, content:string, userId:string) => {
+    try {
+      const response = await axios.post(`http://localhost:8000/comment`, { postId, content, userId }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log('Error in creating comment:', error);
+    }
+  }
+
+  const getCommentByBlogId = async(blogId: string) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/comment/${blogId}`);
+      return response.data;
+    } catch (error) {
+      console.log('Error in getting comments by blog id:', error);
+    }
+  }
+
+  const addReply = async(postId:string, reply:string, userId:string) => {
+    try {
+      const response = await axios.post(`http://localhost:8000/comment/add-replies`, { postId, reply, userId }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log('Error in adding reply:', error);
+    }
+  }
   
+  const getAllUser = async() => {
+    try{
+        const response = await axios.get('http://localhost:8000/user');
+        return response.data;
+    }catch(error){
+        console.log('error', error);
+    }
+  } 
+
+  const assignRole = async(id:string, role:string) => {
+    try{
+      const response = await axios.patch(`http://localhost:8000/user/role/${id}`,{role},{
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    }catch(error){
+      console.log('error', error);
+    }
+  }
+
+  const changeVerifyStatus = async(id: string, status: boolean) => {
+    try {
+      const response = await axios.patch(`http://localhost:8000/user/verify/${id}`, { verify:status }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log('Error in changing verify status:', error);
+    }
+  }
+
+  const updateProfilePicture = async(id:string, file:File) =>{
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      const response = await axios.patch(`http://localhost:8000/user/profile-picture/${id}`, formData, {
+        headers: {
+          'Content-Type':'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log('Error in updating profile picture:', error);
+    }
+  }
 
 
 const apiFunctions = {
@@ -145,8 +240,15 @@ const apiFunctions = {
     saveBlogVideo,
     getAlLBlogPost,
     getBlogPostById,
-    updateBlogPost
-
-}
+    updateBlogPost,
+    PostStatusUpdate,
+    CreateComment,
+    getCommentByBlogId,
+    addReply,
+    getAllUser,
+    assignRole,
+    changeVerifyStatus,
+    updateProfilePicture,
+};
 
 export default apiFunctions;

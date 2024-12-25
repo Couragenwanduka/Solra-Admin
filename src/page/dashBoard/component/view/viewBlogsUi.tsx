@@ -1,6 +1,6 @@
 import BlogSmallText from '../../../../component/text/blogSmallText';
 import { FaEdit } from "react-icons/fa";
-import ReadMoreButton from '../button/readMoreButton';
+import { MdOutlineArrowOutward } from 'react-icons/md';
 import { CiHeart } from 'react-icons/ci';
 import { FiSend } from 'react-icons/fi';
 import { FC } from 'react';
@@ -128,9 +128,16 @@ const ViewBlogUi: FC<Component> = ({
 
         {/* Actions */}
         <div className="w-[25%] flex flex-col justify-end">
-          <button onClick={handleOnCLick}>
-               <ReadMoreButton />
-          </button>
+            <button onClick={handleOnCLick}>
+                       <Link to={`/blog/${blog._id}`}>
+                            <span
+                              className={` w-32  border border-[#1c1c1c] flex justify-center items-center pr-2 pl-2 md:pr-0 md:pl-0  md:h-10 h-10 rounded-lg font-inter md:text-[15px] text-[13px] gap-2 text-[#606060] cursor-pointer`}
+                            >
+                              ReadMore
+                              <MdOutlineArrowOutward className="text-[#FFAC9D] lg:w-[20px] lg:h-[20px] w-[14px] h-[14px]" />
+                            </span>
+                          </Link>
+                    </button>
         
           {/* {isAuthor && <Link to={`/edit/${blog._id}`} state={blog}><button className="text-pe w-32 rounded-md h-8 gap-3 text-text-colour mt-2 flex  flex-row-reverse justify-center items-center border border-peach"><FaEdit />Edit</button></Link>} */}
           {isAuthor && blog?._id && (

@@ -12,19 +12,21 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { useUser } from "../../../hooks/userDetails";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../hooks/authContext";
 
 interface ErrorResponse {
   message: string;
 }
 
 const RightPanel = () => {
+    const { login } = useAuth();
     const [isPasswordVisible, setPasswordVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { setUser } = useUser();
+    
 
     const handlePasswordVisiblity = () => {
         setPasswordVisible(prev => !prev)
@@ -44,7 +46,7 @@ const RightPanel = () => {
       onSuccess: (data) => {
           setIsLoading(false); 
           toast.success(data.message)
-          Cookies.set('accessToken', data.accessToken, {expires: 0.125});  // store the JWT token in a cookie for future requests (3 hours)
+          login(data.accessToken);  // set the token in the authentication context
           setUser(data.user); 
           setTimeout(() => {
             navigate('/');

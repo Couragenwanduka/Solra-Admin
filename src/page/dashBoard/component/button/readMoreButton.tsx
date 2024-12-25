@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 import { MdOutlineArrowOutward } from 'react-icons/md';
 import { Link } from 'react-router-dom';

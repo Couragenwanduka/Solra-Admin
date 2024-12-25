@@ -32,4 +32,5 @@ export interface Blog {
     likesIp?: string[];
     isHeadLine?: boolean;
     pulicationDate: Date;
+    status?: string; 
   }

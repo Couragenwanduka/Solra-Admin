@@ -40,6 +40,7 @@ interface Blog {
   likesIp?: string[];
   isHeadLine?: boolean;
   pulicationDate: Date;
+  status: string;
 }
 
 const ViewBlog = () => {
@@ -77,8 +78,11 @@ const ViewBlog = () => {
       {/* Render blogs based on activeTab */}
       {activeTab === 0 && (
         <div>
-          {blogData?.blogs?.map((blog: Blog) => (
-            <ViewBlogUi
+        {blogData?.blogs
+          ?.filter((blog: Blog) => blog.status === 'approved')
+          .map((blog: Blog, index:number) => (
+           <div key={index}>
+             <ViewBlogUi
               key={blog.id}
               author={blog.author}
               category={blog.category}
@@ -89,17 +93,20 @@ const ViewBlog = () => {
               shares={blog.sendBlog}
               blog={blog}
             />
+           </div>
           ))}
-        </div>
+      </div>
+      
       )}
 
       {activeTab === 1 && (
         <div>
           {/* Featured blogs */}
-          {blogData?.blogs.map((blog: Blog) => {
-            if (blog.isHeadLine === true) {
+          {blogData?.blogs.map((blog: Blog, index:number) => {
+            if (blog.isHeadLine === true && blog.status === 'approved') {
               return (
-                <ViewBlogUi
+                <div key={index}>
+                  <ViewBlogUi
                   key={blog.id}
                   author={blog.author}
                   category={blog.category}
@@ -110,6 +117,7 @@ const ViewBlog = () => {
                   shares={blog.sendBlog}
                   blog={blog}
                 />
+                </div>
               );
             }
             return null;
@@ -118,29 +126,36 @@ const ViewBlog = () => {
       )}
 
       {activeTab === 2 && (
-        <div>
-          {/* Popular blogs */}
-          {blogData?.blogs.sort((a: Blog, b: Blog) => b.likes - a.likes).map((blog: Blog) => (
-            <ViewBlogUi
-              key={blog.id}
-              author={blog.author}
-              category={blog.category}
-              postDate={blog.pulicationDate}
-              title={blog.title}
-              description={blog.description}
-              likes={blog.likes}
-              shares={blog.sendBlog}
-              blog={blog}
-            />
-          ))}
-        </div>
+       <div>
+       {/* Popular blogs */}
+       {blogData?.blogs
+         ?.filter((blog: Blog) => blog.status === 'approved') // Filter approved blogs
+         .sort((a: Blog, b: Blog) => b.likes - a.likes) // Sort by likes in descending order
+         .map((blog: Blog, index:number) => (
+           <div key={index}>
+           <ViewBlogUi
+             key={blog.id}
+             author={blog.author}
+             category={blog.category}
+             postDate={blog.pulicationDate}
+             title={blog.title}
+             description={blog.description}
+             likes={blog.likes}
+             shares={blog.sendBlog}
+             blog={blog}
+           />
+           </div>
+         ))}
+     </div>
+     
       )}
 
       {activeTab === 3 && (
         <div>
-          {blogData?.blogs.map((blog:Blog)=> {
+          {blogData?.blogs.map((blog:Blog, index:number)=> {
             if(blog.author.email === user?.email){
               return (
+                <div key={index}>
                 <ViewBlogUi
                   key={blog.id}
                   author={blog.author}
@@ -153,6 +168,7 @@ const ViewBlog = () => {
                   isAuthor={true} // to show edit and delete buttons for the author's blog post.
                   blog={blog}
                 />
+                </div>
               );
             }
             return null;  // to prevent rendering blogs of other users if logged in user is not the author of the blog.

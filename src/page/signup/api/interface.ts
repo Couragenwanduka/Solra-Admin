@@ -1,4 +1,5 @@
 export interface User {
+   _id?: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -6,7 +7,7 @@ export interface User {
   }
   
 export interface UserResponse {
-    id: string;
+    id?: string;
     firstName: string;
     lastName: string;
     email: string;
