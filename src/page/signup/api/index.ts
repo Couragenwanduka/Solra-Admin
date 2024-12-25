@@ -20,7 +20,7 @@ export interface UserResponse {
 const createUser = async (user: User): Promise<UserResponse> => {
   try {
     const response = await axios.post<UserResponse>(
-      `${"http://localhost:8000"}/user/register`,
+      `${"https://blog-solra-1.onrender.com"}/user/register`,
       user
     );
 
