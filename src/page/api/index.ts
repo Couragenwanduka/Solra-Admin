@@ -1,10 +1,9 @@
 import axios from "axios";
-import Cookies from 'js-cookie';
-// import base64ToFile from "./base64ToFile";
 
+// const baseUrl ='https://blog-solra-1.onrender.com'
 const getCategory = async() => {
     try{
-        const response = await axios.get('http://localhost:8000/category');
+        const response = await axios.get('https://blog-solra-1.onrender.com/category');
         return response.data;
     }catch(error){
         console.log('error', error);
@@ -31,14 +30,14 @@ const saveBlog = async (data: BlogData) => {
       formData.append("header", data.contents.contents.header);
       formData.append("smallDescription", data.contents.contents.smallDescription);
       formData.append("body", data.contents.contents.body);
-      const token = Cookies.get('accessToken');
+      const token = localStorage.getItem('accessToken');
 
       if(data.file){
         formData.append("image", data.file )
       }
 
       // Send the FormData to the server
-      const response = await axios.post('http://localhost:8000/blogPost/image', formData, {
+      const response = await axios.post('https://blog-solra-1.onrender.com/blogPost/image', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Ensure that content type is set to multipart
           'authorization': `Bearer ${token}`,
@@ -67,10 +66,11 @@ const saveBlog = async (data: BlogData) => {
         category: data.category,
         video: data.video.video,
       }
-      const response = await axios.post('http://localhost:8000/videoPost', sendData, {
+      const token = localStorage.getItem('accessToken');
+      const response = await axios.post('https://blog-solra-1.onrender.com/videoPost', sendData, {
         headers: {
           'Content-Type': 'application/json',
-          'authorization': `Bearer ${Cookies.get('accessToken')}`,
+          'authorization': `Bearer ${token}`,
         },
         withCredentials: true,
       });
@@ -82,7 +82,7 @@ const saveBlog = async (data: BlogData) => {
 
   const getAlLBlogPost = async() => {
     try{
-        const response = await axios.get('http://localhost:8000/blogPost');
+        const response = await axios.get('https://blog-solra-1.onrender.com/blogPost');
         return response.data;
     }catch(error){
         console.log('error', error);
@@ -91,7 +91,7 @@ const saveBlog = async (data: BlogData) => {
 
   const getBlogPostById = async(id: string) => {
     try{
-        const response = await axios.get(`http://localhost:8000/blogPost/blog/${id}`);
+        const response = await axios.get(`https://blog-solra-1.onrender.com/blogPost/blog/${id}`);
         return response.data;
     }catch(error){
         console.log('error', error);
@@ -123,7 +123,7 @@ const saveBlog = async (data: BlogData) => {
        if(data.file){
         formData.append("image", data.file )
       }
-      const response = await axios.patch(`http://localhost:8000/blogPost/update/${id}`, formData, {
+      const response = await axios.patch(`https://blog-solra-1.onrender.com/blogPost/update/${id}`, formData, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -137,7 +137,7 @@ const saveBlog = async (data: BlogData) => {
 
   const PostStatusUpdate = async (id:string, status:string) => {
     try {
-      const response = await axios.patch(`http://localhost:8000/blogPost/status/${id}`, { status }, {
+      const response = await axios.patch(`https://blog-solra-1.onrender.com/blogPost/status/${id}`, { status }, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -150,7 +150,7 @@ const saveBlog = async (data: BlogData) => {
 
   const CreateComment = async(postId:string, content:string, userId:string) => {
     try {
-      const response = await axios.post(`http://localhost:8000/comment`, { postId, content, userId }, {
+      const response = await axios.post(`https://blog-solra-1.onrender.com/comment`, { postId, content, userId }, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -163,7 +163,7 @@ const saveBlog = async (data: BlogData) => {
 
   const getCommentByBlogId = async(blogId: string) => {
     try {
-      const response = await axios.get(`http://localhost:8000/comment/${blogId}`);
+      const response = await axios.get(`https://blog-solra-1.onrender.com/comment/${blogId}`);
       return response.data;
     } catch (error) {
       console.log('Error in getting comments by blog id:', error);
@@ -172,7 +172,7 @@ const saveBlog = async (data: BlogData) => {
 
   const addReply = async(postId:string, reply:string, userId:string) => {
     try {
-      const response = await axios.post(`http://localhost:8000/comment/add-replies`, { postId, reply, userId }, {
+      const response = await axios.post(`https://blog-solra-1.onrender.com/comment/add-replies`, { postId, reply, userId }, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -185,7 +185,7 @@ const saveBlog = async (data: BlogData) => {
   
   const getAllUser = async() => {
     try{
-        const response = await axios.get('http://localhost:8000/user');
+        const response = await axios.get('https://blog-solra-1.onrender.com/user');
         return response.data;
     }catch(error){
         console.log('error', error);
@@ -194,7 +194,7 @@ const saveBlog = async (data: BlogData) => {
 
   const assignRole = async(id:string, role:string) => {
     try{
-      const response = await axios.patch(`http://localhost:8000/user/role/${id}`,{role},{
+      const response = await axios.patch(`https://blog-solra-1.onrender.com/user/role/${id}`,{role},{
         headers: {
           'Content-Type': 'application/json',
         },
@@ -207,7 +207,7 @@ const saveBlog = async (data: BlogData) => {
 
   const changeVerifyStatus = async(id: string, status: boolean) => {
     try {
-      const response = await axios.patch(`http://localhost:8000/user/verify/${id}`, { verify:status }, {
+      const response = await axios.patch(`https://blog-solra-1.onrender.com/user/verify/${id}`, { verify:status }, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -222,7 +222,7 @@ const saveBlog = async (data: BlogData) => {
     try {
       const formData = new FormData();
       formData.append("image", file);
-      const response = await axios.patch(`http://localhost:8000/user/profile-picture/${id}`, formData, {
+      const response = await axios.patch(`https://blog-solra-1.onrender.com/user/profile-picture/${id}`, formData, {
         headers: {
           'Content-Type':'multipart/form-data',
         },
