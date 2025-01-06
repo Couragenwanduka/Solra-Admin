@@ -18,7 +18,7 @@ export interface UserResponse {
 const loginUser = async (user: User) => {
   try {
     const response = await axios.post(
-      `${"https://blog-solra-1.onrender.com"}/user/login`,
+      `${"https://blog-solra.onrender.com"}/user/login`,
       user,
       // {
       //   withCredentials: true,
