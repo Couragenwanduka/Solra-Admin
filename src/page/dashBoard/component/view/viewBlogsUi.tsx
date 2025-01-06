@@ -96,12 +96,12 @@ const ViewBlogUi: FC<Component> = ({
         <div className="w-[35%] flex justify-center items-start">
           <img
             src={ author.picture||'/image/Image.png'}
-            alt={`Profile picture of ${author.firstName} ${author.lastName}`}
+            alt={`Profile picture of`}
             className="md:w-[5rem] md:h-[5rem] rounded-full"
           />
         </div>
         <div className="mt-2 w-[60%]">
-          <h1 className="text-[20px] font-inter">{author.firstName} {author.lastName}</h1>
+          <h1 className="text-[20px] font-inter">{author?.firstName} {author?.lastName}</h1>
           <p className="font-inter text-text-colour text-[15px]">{category.name}</p>
         </div>
       </div>

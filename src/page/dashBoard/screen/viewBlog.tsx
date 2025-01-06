@@ -153,7 +153,7 @@ const ViewBlog = () => {
       {activeTab === 3 && (
         <div>
           {blogData?.blogs.map((blog:Blog, index:number)=> {
-            if(blog.author.email === user?.email){
+            if(blog.author?.email === user?.email){
               return (
                 <div key={index}>
                 <ViewBlogUi

@@ -97,14 +97,14 @@ const ApproveBlog = () => {
              <ApproveBlogUi
               key={blog.id}
               isBlog={false}
-              authorName={`${blog.author.firstName} ${blog.author.lastName}`}
+              authorName={`${blog.author?.firstName|| 'unknown'} ${blog.author?.lastName|| 'unknown'}`}
               category={blog.category.name}
               postDate={blog.postDate}
               title={blog.title}
               description={blog.description}
               likes={blog.likes}
               shares={blog.sendBlog}
-              authorsPicture={blog.author.picture}
+              authorsPicture={blog.author?.picture}
               blog={blog}
             />
            </div>

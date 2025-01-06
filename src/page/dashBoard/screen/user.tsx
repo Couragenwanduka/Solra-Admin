@@ -36,7 +36,6 @@ const User = () => {
       console.error("Error fetching user data:", isError);
       return <div>Error fetching user data.</div>;
     }
-    console.log("User data", userData);
   return (
    <main className="h-screen overflow-scroll">
      <div>

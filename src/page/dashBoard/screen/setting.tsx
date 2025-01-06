@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import apiFunctions from "../../api";
 import { useUser } from "../../../hooks/userDetails";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface User {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,6 +34,7 @@ const Setting = () => {
     onSuccess: (updatedUser) => {
       setUser(updatedUser.update); // Update user state with new profile picture
       setProfilePic(updatedUser.update.picture); // Update state with new profile picture
+      toast.success("Profile picture updated successfully!");
     },
     onError: (error) => {
       console.error("Error updating user profile picture:", error);
@@ -61,6 +64,7 @@ const Setting = () => {
   return (
     <div className="min-h-screen bg-[#191919] text-text-colour p-6  justify-center flex flex-col items-center">
       <h1 className="text-2xl font-semibold mb-6">Settings</h1>
+      <ToastContainer autoClose={5000} />
 
       {/* Profile Picture Section */}
       <div className="flex flex-col items-center mb-8 ">
