@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import React, { useState } from 'react';
 import LogoSolra from '../../component/Logo/Logo';
 import { MdDashboard, MdPostAdd, MdOutlineApproval } from 'react-icons/md';
 import { CiViewList } from 'react-icons/ci';
 import { FaRegUser } from 'react-icons/fa6';
 import { IoIosLogOut } from 'react-icons/io';
 import { IoSettingsOutline } from 'react-icons/io5';
+import { GiHamburgerMenu } from 'react-icons/gi'; 
 import classNames from 'classnames';
 import DashBoardScreen from './screen/dashBoard';
 import PostBlog from './screen/postBlog';
@@ -21,18 +21,20 @@ const USER_KEY = 'user';
 const DashBoard = () => {
   const { user } = useUser();
   const [activeTab, setActiveTab] = useState(0);
-  const { logout } = useAuth(); // Get the logout function
+  const { logout } = useAuth();
+  const [openSideBar, setOpenSideBar] = useState(true); // Sidebar is open by default
 
-  // Function to handle logout and clear local storage
+  const toggleSideBar = () => setOpenSideBar(!openSideBar);
+
   const clearLocalStorage = () => {
     localStorage.removeItem(USER_KEY);
-    logout(); // Log the user out using the logout function from context
-    window.location.replace('/'); // Redirect to home or login page
+    logout();
+    window.location.replace('/');
   };
 
   type UserRole = 'Admin' | 'Developer' | 'Editor' | 'Cheif Editor';
-  
-  const roleTabs: Record<UserRole, { icon: JSX.Element; label: string; content: JSX.Element; action?: () => void }[]> = {
+
+  const roleTabs: Record<UserRole, { icon: React.JSX.Element; label: string; content: React.JSX.Element; action?: () => void }[]> = {
     Admin: [
       { icon: <MdDashboard />, label: 'Dashboard', content: <DashBoardScreen /> },
       { icon: <MdPostAdd />, label: 'Post Blog', content: <PostBlog /> },
@@ -66,51 +68,56 @@ const DashBoard = () => {
     ]
   };
 
-  // Ensure user exists before rendering tabs
   if (!user) {
     return <div>Loading...</div>;
   }
-  const tabs = user?.role && roleTabs[user.role as UserRole] ? roleTabs[user.role as UserRole] : roleTabs['Editor']; // Fallback to 'Editor' if no role is found
 
-  // const tabs = user?.role ? roleTabs[user.role] : roleTabs['Editor']; // Fallback to 'developer' if no role is found
+  const tabs = user?.role && roleTabs[user.role as UserRole] ? roleTabs[user.role as UserRole] : roleTabs['Editor'];
 
   return (
     <div className="flex font-inter h-screen overflow-scroll">
       {/* Sidebar */}
-      <section className="w-[23%] bg-[#141414] h-screen hidden lg:block">
-        <div className="flex pt-10 pl-12">
-          <LogoSolra />
+      <section className={classNames( 'bg-[#141414] h-screen fixed top-0 left-0 transition-all duration-300 z-50',
+          {
+            'w-[70px]': !openSideBar,
+            'w-[230px]': openSideBar,
+          }
+        )}
+      >
+        <div className="flex justify-between items-center p-4 mt-8 ml-5">
+          {openSideBar && <LogoSolra />}
+          <button onClick={toggleSideBar} className="text-white text-2xl md:hidden">
+            {openSideBar ? 'X' : <GiHamburgerMenu />}
+          </button>
         </div>
-        <div className="flex flex-col justify-center items-start mt-10">
-          {tabs.map((tab:any, index:number) => (
+        <div className="flex flex-col mt-10 gap-7 ml-5">
+          {tabs.map((tab, index) => (
             <button
               key={index}
               onClick={() => {
-                setActiveTab(index); // Set active tab
-                if (tab.action) tab.action(); // If this tab has an action (like logout), call it
+                setActiveTab(index);
+                if (tab.action) tab.action();
               }}
               className={classNames(
-                'flex items-center gap-4 text-lg w-full ml-5 rounded-l-xl px-4 py-2 text-left',
+                'flex items-center gap-4 text-lg w-[99.5%]  rounded-l-xl px-4 py-4',
                 {
-                  'bg-[#191919] text-white font-bold pl-5': activeTab === index,
+                  'justify-center': !openSideBar,
+                  'justify-start': openSideBar,
+                  'bg-[#191919] text-white font-bold': activeTab === index,
                   'text-text-colour': activeTab !== index,
                 }
               )}
             >
-              <span className="w-10 h-10 flex justify-center items-center text-xl">
-                {tab.icon}
-              </span>
-              {tab.label}
+              <span className="text-xl">{tab.icon}</span>
+              {openSideBar && tab.label}
             </button>
           ))}
         </div>
       </section>
 
       {/* Tab Panels */}
-      <div className="flex-grow w-[77%]">
-        {tabs[activeTab]?.content || (
-          <h2 className="text-center text-gray-500">Select a tab to display content</h2>
-        )}
+      <div className="flex-grow z-10">
+        {tabs[activeTab]?.content || <h2 className="text-center text-gray-500">Select a tab to display content</h2>}
       </div>
     </div>
   );

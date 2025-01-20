@@ -84,7 +84,7 @@ const EditImagePost = () => {
     });
 
   return (
-    <main className="w-[99%] flex flex-col p-10 justify-center">
+    <main className="w-[99%] flex flex-col p-10 justify-center ">
       <div>
         <HeaderNav />
       </div>

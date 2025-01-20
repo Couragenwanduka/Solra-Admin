@@ -74,8 +74,8 @@ const LeftPanel = () => {
     return (
         <main>
             <span>
-                <h1 className="text-5xl font-inter mt-10">Create an account</h1>
-                <h2 className="mt-5 text-text-colour underline font-thin text-sm">Already have an account? <span className="text-muted-peach">Login</span></h2>
+                <h1 className="md:text-5xl  text-2xl font-inter mt-10">Create an account</h1>
+                <h2 className="mt-5 text-text-colour underline font-thin text-sm">Already have an account? <span className="text-muted-peach cursor-pointer" onClick={()=> {navigate('/login')}}>Login</span></h2>
             </span>
             
             {/* Formik Form */}

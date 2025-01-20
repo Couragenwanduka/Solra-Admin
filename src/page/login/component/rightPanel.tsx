@@ -77,7 +77,7 @@ const RightPanel = () => {
   return (
    <main>
         <span>
-            <h1 className="text-5xl font-inter  ">Welcome Back</h1>
+            <h1 className="md:text-5xl text-2xl font-inter  ">Welcome Back</h1>
             <h2 className="mt-5 text-text-colour underline font-thin text-sm"> Dont have an Account <Link to={'/signup'}><span className="text-muted-peach">SignUp</span></Link></h2>
         </span>
         <Formik

@@ -83,7 +83,7 @@ const ViewBlog = () => {
       <div>
         <HeaderNav />
       </div>
-      <div>
+      <div className="ml-16 md:ml-60">
         <button
           onClick={() => setActiveTab(0)}
           className={`px-4 py-2 rounded-md ${

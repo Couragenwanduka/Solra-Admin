@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { FaArrowDownLong } from 'react-icons/fa6';
 import BlogSmallText from '../../../component/text/blogSmallText';
 import { FaHeart } from 'react-icons/fa6';

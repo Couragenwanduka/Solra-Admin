@@ -37,7 +37,7 @@ const User = () => {
       return <div>Error fetching user data.</div>;
     }
   return (
-   <main className="h-screen overflow-scroll">
+   <main className="h-screen overflow-scroll ml-16">
      <div>
        <HeaderNav />
      </div>
