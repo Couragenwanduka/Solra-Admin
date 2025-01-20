@@ -1,28 +1,29 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+import globals from "globals";
+import pluginJs from "@eslint/js";
+import tseslint from "@typescript-eslint/eslint-plugin"; 
+import parserTs from "@typescript-eslint/parser"; // Added TypeScript parser
+import pluginReact from "eslint-plugin-react";
 
-export default tseslint.config(
-  { ignores: ['dist'] },
+/** @type {import('eslint').Linter.FlatConfig[]} */
+export default [
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+      parser: parserTs, // Use TypeScript parser
+      globals: globals.browser, // Include browser globals
     },
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
+      "@typescript-eslint": tseslint,
+      react: pluginReact,
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      // Add your custom rules here
+      "react/react-in-jsx-scope": "off", // Disable React import requirement for JSX
+      "react/prop-types": "off", // Disable prop-types rules for TypeScript
+      "@typescript-eslint/explicit-module-boundary-types": "off", // Disable explicit return types
     },
   },
-)
+  pluginJs.configs.recommended,
+  ...tseslint.configs.flatRecommended, // Use flat config for TypeScript
+  pluginReact.configs.flat.recommended, // Use flat config for React
+];

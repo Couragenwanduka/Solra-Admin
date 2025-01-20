@@ -12,13 +12,13 @@ export interface UserResponse {
   email: string;
 }
 
-// const api = import.meta.env.REACT_APP_API_URL
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Accepts a User object and returns a Promise that resolves to a UserResponse
 const loginUser = async (user: User) => {
   try {
     const response = await axios.post(
-      `${"https://blog-solra.onrender.com"}/user/login`,
+      `${API_URL}/user/login`,
       user,
       // {
       //   withCredentials: true,

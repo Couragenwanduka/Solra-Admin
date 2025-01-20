@@ -8,7 +8,7 @@ const HeaderNav = () => {
 
   return (
     <main className="flex justify-between items-center h-28 w-full font-inter">
-      <div className="w-6/12 flex h-10 border border-text-colour/50 pr-3 pl-3 rounded-lg ml-7">
+      <div className="w-6/12 h-10 border border-text-colour/50 pr-3 pl-3 rounded-lg md:ml-[15.5rem] hidden md:flex">
         <input
           type="text"
           placeholder="search ....."
@@ -19,11 +19,11 @@ const HeaderNav = () => {
         </button>
       </div>
 
-      <div className="w-6/12 h-10 flex justify-end gap-7 mr-7">
+      <div className="md:w-6/12 w-full h-10 flex md:justify-end justify-center ml-14  gap-9 md:gap-7 md:mr-7">
         <button>
           <FiBell className="text-xl text-text-colour/50" />
         </button>
-        <button className="flex justify-center items-center gap-3">
+        <div className="flex justify-center items-center md:gap-3 gap-5">
           <span className="rounded-full w-9 h-9 border border-text-colour/50 flex justify-center items-center">
             {/* Conditionally render the profile image or the default icon */}
             {user?.picture ? (
@@ -36,11 +36,11 @@ const HeaderNav = () => {
               <IoPersonOutline className="text-xl text-text-colour/50" />
             )}
           </span>
-          <span className="text-black flex flex-col">
+          <span className="text-black flex flex-col ml-3 md:ml-0">
             <p className="text-white text-[15px]">{`${user?.firstName} ${user?.lastName}`}</p>
             <p className="text-[14px] text-text-colour/50">{user?.role}</p>
           </span>
-        </button>
+        </div>
       </div>
     </main>
   );

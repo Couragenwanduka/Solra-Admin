@@ -11,8 +11,8 @@ const DashBoardScreen = () => {
         <HeaderNav />
       </div>
 
-      <section className="flex justify-evenly mt-[1rem] pr-5 pl-5 gap-6">
-        <div className="w-[300px] h-[150px] bg-gradient-to-br bg-[#141414] backdrop-blur-md shadow-lg rounded-lg p-6 flex flex-row-reverse  items-center justify-between">
+      <section className="flex flex-col md:flex-row justify-evenly mt-[1rem] pr-5 pl-5 gap-6 ml-[4.2rem] md:ml-52">
+        <div className="md:w-[300px] w-[280px] h-[150px] bg-gradient-to-br bg-[#141414] backdrop-blur-md shadow-lg rounded-lg p-6 flex flex-row-reverse  items-center justify-between">
           <p className=" w-10 h-10 flex justify-center items-center rounded-full"><BsBoxArrowUpRight className="text-2xl text-peach" /></p>
          <span>
             <p className="text-lg font-inter">Post</p>
@@ -20,7 +20,7 @@ const DashBoardScreen = () => {
          </span>
         </div>
 
-        <div className="w-[300px] h-[150px] bg-[#191919] shadow-lg rounded-lg p-6 flex flex-row-reverse  items-center justify-between border border-text-colour/50">
+        <div className="md:w-[300px] w-[280px] h-[150px] bg-[#191919] shadow-lg rounded-lg p-6 flex flex-row-reverse  items-center justify-between border border-text-colour/50">
         <p> <SiTeamviewer className="text-2xl text-peach"  /></p>
         <span>
             <p className="text-lg font-inter">View</p>
@@ -28,7 +28,7 @@ const DashBoardScreen = () => {
          </span>
         </div>
 
-        <div className="w-[300px] h-[150px] bg-gradient-to-br bg-[#141414] backdrop-blur-md  shadow-lg rounded-lg p-6 flex flex-row-reverse  items-center justify-between">
+        <div className="md:w-[300px] w-[280px] h-[150px] bg-gradient-to-br bg-[#141414] backdrop-blur-md  shadow-lg rounded-lg p-6 flex flex-row-reverse  items-center justify-between">
         <p className="w-10 h-10 flex justify-center items-center rounded-full">< TbFileLike className="text-2xl text-peach" /></p>
         <span>
             <p className="text-lg font-inter">Likes</p>
@@ -37,8 +37,8 @@ const DashBoardScreen = () => {
         </div>
       </section>
 
-      <section className="mt-16 pl-6 flex gap-8 w-full pr-5">
-        <div>
+      <section className="mt-16 pl-6 flex flex-col md:flex-row gap-8 md:w-[85%] pr-5 ml-[4.2rem] md:ml-48">
+        <div className='hidden md:block'>
             <SimpleAreaChart/>
         </div>
         <div className="w-full">

@@ -6,9 +6,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useUser } from "../../../hooks/userDetails";
 
 interface Blog {
-  id:string
+  id: string;
   isAuthor?: boolean;
-  author: { 
+  author: {
     picture: string;
     firstName: string;
     lastName: string;
@@ -27,11 +27,13 @@ interface Blog {
   likes: number;
   shares: number;
   _id: string;
-  contents:[{
-    header:string;
-    smallDescription:string;
-    body:string
-}]
+  contents: [
+    {
+      header: string;
+      smallDescription: string;
+      body: string;
+    }
+  ];
   publicationDate: string;
   image?: string;
   video?: string;
@@ -55,127 +57,90 @@ const ViewBlog = () => {
     return <div>Loading...</div>;
   }
 
+  const renderNoBlogsFound = () => (
+    <div className="text-center text-gray-500 mt-10">
+      No blog posts found
+    </div>
+  );
+
+  const filteredBlogs =
+    activeTab === 0
+      ? blogData?.blogs?.filter((blog: Blog) => blog.status === "approved")
+      : activeTab === 1
+      ? blogData?.blogs?.filter(
+          (blog: Blog) => blog.isHeadLine && blog.status === "approved"
+        )
+      : activeTab === 2
+      ? blogData?.blogs
+          ?.filter((blog: Blog) => blog.status === "approved")
+          .sort((a: Blog, b: Blog) => b.likes - a.likes)
+      : blogData?.blogs?.filter(
+          (blog: Blog) => blog.author?.email === user?.email
+        );
+
   return (
     <main className="h-screen overflow-scroll">
       <div>
         <HeaderNav />
       </div>
-      <div>
-        <button onClick={() => setActiveTab(0)} className={`px-4 py-2 rounded-md ${ activeTab === 0 ? "text-peach underline" : "text-text-colour"}`}>
-         All
+      <div className="ml-16 md:ml-60">
+        <button
+          onClick={() => setActiveTab(0)}
+          className={`px-4 py-2 rounded-md ${
+            activeTab === 0 ? "text-peach underline" : "text-text-colour"
+          }`}
+        >
+          All
         </button>
-        <button onClick={() => setActiveTab(1)} className={`px-4 py-2 rounded-md ${ activeTab === 1 ? "text-peach underline" : "text-text-colour"}`}>
+        <button
+          onClick={() => setActiveTab(1)}
+          className={`px-4 py-2 rounded-md ${
+            activeTab === 1 ? "text-peach underline" : "text-text-colour"
+          }`}
+        >
           Featured
         </button>
-        <button onClick={() => setActiveTab(2)} className={`px-4 py-2 rounded-md ${ activeTab === 2 ? "text-peach underline" : "text-text-colour"}`} >
+        <button
+          onClick={() => setActiveTab(2)}
+          className={`px-4 py-2 rounded-md ${
+            activeTab === 2 ? "text-peach underline" : "text-text-colour"
+          }`}
+        >
           Popular
         </button>
-        <button onClick={() => setActiveTab(3)} className={`px-4 py-2 rounded-md ${ activeTab === 3 ? "text-peach underline" : "text-text-colour"}`}>
+        <button
+          onClick={() => setActiveTab(3)}
+          className={`px-4 py-2 rounded-md ${
+            activeTab === 3 ? "text-peach underline" : "text-text-colour"
+          }`}
+        >
           My Post
         </button>
       </div>
 
-      {/* Render blogs based on activeTab */}
-      {activeTab === 0 && (
-        <div>
-        {blogData?.blogs
-          ?.filter((blog: Blog) => blog.status === 'approved')
-          .map((blog: Blog, index:number) => (
-           <div key={index}>
-             <ViewBlogUi
-              key={blog.id}
-              author={blog.author}
-              category={blog.category}
-              postDate={blog.pulicationDate}
-              title={blog.title}
-              description={blog.description}
-              likes={blog.likes}
-              shares={blog.sendBlog}
-              blog={blog}
-            />
-           </div>
-          ))}
+      {/* Render blogs or fallback */}
+      <div>
+        {filteredBlogs?.length ? (
+          filteredBlogs.map((blog: Blog, index: number) => (
+            <div key={index}>
+              <ViewBlogUi
+                key={blog.id}
+                author={blog.author}
+                category={blog.category}
+                postDate={blog.pulicationDate}
+                title={blog.title}
+                description={blog.description}
+                likes={blog.likes}
+                shares={blog.sendBlog}
+                isAuthor={activeTab === 3} // Show edit and delete buttons for user's posts
+                blog={blog}
+              />
+            </div>
+          ))
+        ) : (
+          renderNoBlogsFound()
+        )}
       </div>
-      
-      )}
-
-      {activeTab === 1 && (
-        <div>
-          {/* Featured blogs */}
-          {blogData?.blogs.map((blog: Blog, index:number) => {
-            if (blog.isHeadLine === true && blog.status === 'approved') {
-              return (
-                <div key={index}>
-                  <ViewBlogUi
-                  key={blog.id}
-                  author={blog.author}
-                  category={blog.category}
-                  postDate={blog.pulicationDate}
-                  title={blog.title}
-                  description={blog.description}
-                  likes={blog.likes}
-                  shares={blog.sendBlog}
-                  blog={blog}
-                />
-                </div>
-              );
-            }
-            return null;
-          })}
-        </div>
-      )}
-
-      {activeTab === 2 && (
-       <div>
-       {/* Popular blogs */}
-       {blogData?.blogs
-         ?.filter((blog: Blog) => blog.status === 'approved') // Filter approved blogs
-         .sort((a: Blog, b: Blog) => b.likes - a.likes) // Sort by likes in descending order
-         .map((blog: Blog, index:number) => (
-           <div key={index}>
-           <ViewBlogUi
-             key={blog.id}
-             author={blog.author}
-             category={blog.category}
-             postDate={blog.pulicationDate}
-             title={blog.title}
-             description={blog.description}
-             likes={blog.likes}
-             shares={blog.sendBlog}
-             blog={blog}
-           />
-           </div>
-         ))}
-     </div>
-     
-      )}
-
-      {activeTab === 3 && (
-        <div>
-          {blogData?.blogs.map((blog:Blog, index:number)=> {
-            if(blog.author?.email === user?.email){
-              return (
-                <div key={index}>
-                <ViewBlogUi
-                  key={blog.id}
-                  author={blog.author}
-                  category={blog.category}
-                  postDate={blog.pulicationDate}
-                  title={blog.title}
-                  description={blog.description}
-                  likes={blog.likes}
-                  shares={blog.sendBlog}
-                  isAuthor={true} // to show edit and delete buttons for the author's blog post.
-                  blog={blog}
-                />
-                </div>
-              );
-            }
-            return null;  // to prevent rendering blogs of other users if logged in user is not the author of the blog.
-          })
-          }
-        </div>
-      )}
     </main>
   );
 };
