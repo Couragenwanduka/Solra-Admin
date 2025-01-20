@@ -1,4 +1,3 @@
-import React from "react";
 import { FiBell } from "react-icons/fi";
 import { IoPersonOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
