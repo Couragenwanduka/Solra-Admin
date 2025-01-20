@@ -37,7 +37,7 @@ const DashBoardScreen = () => {
         </div>
       </section>
 
-      <section className="mt-16 pl-6 flex flex-col md:flex-row gap-8 md:w-full w[320px] pr-5 ml-[4.2rem] md:ml-0">
+      <section className="mt-16 pl-6 flex flex-col md:flex-row gap-8 md:w-[85%] pr-5 ml-[4.2rem] md:ml-48">
         <div className='hidden md:block'>
             <SimpleAreaChart/>
         </div>
