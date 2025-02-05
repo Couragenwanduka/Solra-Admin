@@ -90,7 +90,7 @@ const DashBoard = () => {
             {openSideBar ? 'X' : <GiHamburgerMenu />}
           </button>
         </div>
-        <div className="flex flex-col mt-10 gap-7 ml-5">
+        <div className="flex flex-col mt-10 gap-3 ml-5">
           {tabs.map((tab, index) => (
             <button
               key={index}
