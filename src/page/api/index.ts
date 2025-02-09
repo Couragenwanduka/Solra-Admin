@@ -1,9 +1,10 @@
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 
 // const baseUrl ='https://blog-solra-1.onrender.com'
 const getCategory = async() => {
     try{
-        const response = await axios.get('https://blog-solra.onrender.com/category');
+        const response = await axios.get(`${API_URL}/category`);
         return response.data;
     }catch(error){
         console.log('error', error);
@@ -37,7 +38,7 @@ const saveBlog = async (data: BlogData) => {
       }
 
       // Send the FormData to the server
-      const response = await axios.post('https://blog-solra.onrender.com/blogPost/image', formData, {
+      const response = await axios.post(`${API_URL}/blogPost/image`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Ensure that content type is set to multipart
           'authorization': `Bearer ${token}`,
