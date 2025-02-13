@@ -1,7 +1,7 @@
 import axios from "axios";
 // const API_URL = import.meta.env.VITE_API_URL;
 
-const baseUrl ='https://blog-solra-1.onrender.com'
+const baseUrl ='https://blog-solra.onrender.com'
 const getCategory = async() => {
     try{
         const response = await axios.get(`${baseUrl}/category`);
