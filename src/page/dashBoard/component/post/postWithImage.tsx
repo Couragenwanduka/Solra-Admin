@@ -55,6 +55,7 @@ const PostWithImage = () => {
 
   const handleSubmit = () => {
     const storedData = getFromLocalStorage();
+    setIsLoading(true);
     mutation.mutate({ ...storedData, file });
   };
 
@@ -137,7 +138,7 @@ const PostWithImage = () => {
                 type="submit"
                 className="bg-peach w-52 h-10 rounded-md text-[#141414] font-inter disabled:bg-transparent disabled:text-peach "
                 onClick={handleSubmit}
-                disabled={!file}
+                disabled={!file || isLoading}
                // Disable button until form is valid and dirty
               >
                 {isLoading ? "saving..." : "Save Blog"}

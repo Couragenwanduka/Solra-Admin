@@ -79,7 +79,7 @@ const ViewBlog = () => {
         );
 
   return (
-    <main className="h-screen overflow-scroll">
+    <main className="h-screen overflow-scroll bg-[#191919]">
       <div>
         <HeaderNav />
       </div>
