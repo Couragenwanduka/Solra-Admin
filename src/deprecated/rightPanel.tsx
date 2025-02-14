@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import LogoSolra from "../../../component/Logo/Logo";
+import LogoSolra from "../component/Logo/Logo";
 
 const RightPanel = () => {
   // State to track the current slide

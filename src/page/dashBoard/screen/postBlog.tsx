@@ -7,7 +7,7 @@ const PostBlog = () => {
   const [previewTab, setPreviewTab] = useState(0); // For Post with Image and Post with Video
  
   return (
-    <main className="font-inter p-4 h-screen overflow-hidden ml-16 md:ml-52">
+    <main className="font-inter p-4 h-screen overflow-hidden ml-16 md:ml-52 bg-[#191919]">
       {/* Header: Post and Preview */}
       <div className="flex gap-4 mb-4 justify-center items-center">
         <button
