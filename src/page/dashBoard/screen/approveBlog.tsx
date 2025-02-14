@@ -75,7 +75,7 @@ const ApproveBlog = () => {
   ];
 
   return (
-    <main className="h-screen overflow-scroll ml-60">
+    <main className="h-screen overflow-scroll ml-[14.5rem] bg-[#191919]">
       <div className="mt-10 mb-5">
         {tabs.map((tab, index) => (
           <button

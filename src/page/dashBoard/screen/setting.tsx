@@ -62,7 +62,7 @@ const Setting = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#191919] text-text-colour p-6  justify-center flex flex-col items-center ml-16">
+    <div className="min-h-screen bg-[#191919] text-text-colour p-6  justify-center flex flex-col items-center ml-16 ">
       <h1 className="text-2xl font-semibold mb-6">Settings</h1>
       <ToastContainer autoClose={5000} />
 

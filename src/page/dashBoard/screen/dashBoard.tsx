@@ -6,12 +6,12 @@ import SimpleAreaChart from "../component/graph/graph";
 
 const DashBoardScreen = () => {
   return (
-    <main>
+    <main className="bg-[#191919]">
       <div>
         <HeaderNav />
       </div>
 
-      <section className="flex flex-col md:flex-row justify-evenly mt-[1rem] pr-5 pl-5 gap-6 ml-[4.2rem] md:ml-52">
+      <section className="flex flex-col md:flex-row justify-evenly mt-[1rem] pr-5 pl-5 gap-6 ml-[4.2rem] md:ml-52 h-full">
         <div className="md:w-[300px] w-[280px] h-[150px] bg-gradient-to-br bg-[#141414] backdrop-blur-md shadow-lg rounded-lg p-6 flex flex-row-reverse  items-center justify-between">
           <p className=" w-10 h-10 flex justify-center items-center rounded-full"><BsBoxArrowUpRight className="text-2xl text-peach" /></p>
          <span>
@@ -37,7 +37,7 @@ const DashBoardScreen = () => {
         </div>
       </section>
 
-      <section className="mt-16 pl-6 flex flex-col md:flex-row gap-8 md:w-[85%] pr-5 ml-[4.2rem] md:ml-48">
+      <section className="mt-20 pl-6 flex flex-col md:flex-row gap-8 md:w-[85%] pr-5 ml-[4.2rem] md:ml-48">
         <div className='hidden md:block'>
             <SimpleAreaChart/>
         </div>
